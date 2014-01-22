@@ -5,35 +5,59 @@
     <style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
-      #map-canvas { height: 100% }
+      #map-canvas { height: 600px; width: 800px; margin: auto; }
     </style>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?sensor=false">
     </script>
     <script type="text/javascript">
       function initialize() {
-		  
+		  //crate a lat lng pbjct for the map
 		  var myLatLng = new google.maps.LatLng(36, -115);
+		  var myLatLng2 = new google.maps.LatLng(36.085, -115.175);
 		  
+		  //setup properties for the map
         var mapOptions = {
           center: myLatLng,
           zoom: 12
         };
+		
+		//instantiate a map object using above options
         var map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
 			
+			//generate an infowindow when the marker is clicked
+		var infowindow = new google.maps.InfoWindow({
+      		content: "This is the bunker!"
+  		});
+		
+		//generate a marker w/ custom icon
 		var marker = new google.maps.Marker({
-		position: myLatLng,
-		map: map,
-		title: 'Hello World!',
-		icon: 'bunker.png'
-	  });
-
+			position: myLatLng,
+			map: map,
+			title: 'Hello World!',
+			icon: 'bunker.png'
+		  });
+		  
+		  //generate a marker w/ custom icon
+		var marker2 = new google.maps.Marker({
+			position: myLatLng2,
+			map: map,
+			title: 'Bye World!',
+			icon: 'bunker.png'
+		  });
+		  
+		google.maps.event.addListener(marker, 'click', function() {
+    		infowindow.open(map, marker);
+  		});
+		
       }
+	  
       google.maps.event.addDomListener(window, 'load', initialize);
+	  
     </script>
   </head>
   <body>
-    <div id="map-canvas"/>
+    <div id="map-canvas"></div>
   </body>
 </html>
